@@ -1,0 +1,49 @@
+name: viking-gps
+version: "1.6.2"
+summary: GPS data editor, analyzer and viewer
+confinement: strict
+description: |
+  Viking aims to be easy to use, yet powerful in accomplishing a wide
+  variety of GPS related tasks. It uses a hierarchical layering system
+  to organize GPS data, maps, and other layer types with spatial data,
+  such as coordinate lines.
+  https://sourceforge.net/projects/viking/
+
+apps:
+  viking:
+    command: desktop-launch viking
+    plugs:
+      - x11
+      - network
+      - network-bind
+      - home
+
+parts:
+  viking:
+    source: http://downloads.sourceforge.net/project/viking/viking-1.6.2.tar.bz2
+    plugin: autotools
+    build-packages:
+      - autoconf
+      - automake
+      - autotools-dev
+      - bc
+      - dh-autoreconf
+      - docbook-xml
+      - docbook-xsl
+      - gnome-common
+      - gnome-doc-utils
+      - intltool
+      - libbz2-dev
+      - libcurl4-gnutls-dev
+      - libexpat1-dev
+      - libgexiv2-dev
+      - libglib2.0-dev
+      - libgps-dev
+      - libgtk2.0-dev
+      - libmagic-dev
+      - libmapnik-dev
+      - libsqlite3-dev
+      - rarian-compat
+      - xsltproc
+    after: [desktop-gtk2]
+    
