@@ -17,6 +17,7 @@ apps:
       - network
       - network-bind
       - home
+      - desktop
 
 parts:
   viking:
