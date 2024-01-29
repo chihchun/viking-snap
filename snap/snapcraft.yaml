@@ -1,5 +1,7 @@
 name: viking-gps
-version: "1.6.2"
+base: core22
+type: app
+version: "1.10"
 summary: GPS data editor, analyzer and viewer
 confinement: strict
 description: |
@@ -11,7 +13,8 @@ description: |
 
 apps:
   viking:
-    command: desktop-launch viking
+    command: usr/bin/viking
+    extensions: [gnome]
     plugs:
       - x11
       - network
@@ -21,30 +24,55 @@ apps:
 
 parts:
   viking:
-    source: http://downloads.sourceforge.net/project/viking/viking-1.6.2.tar.bz2
+    source-type: git
+    source-tag: viking-1.10
+    source: https://github.com/viking-gps/viking.git
     plugin: autotools
+    autotools-configure-parameters: ['--prefix=/usr', '--disable-examples', '--disable-static']
     build-packages:
-      - autoconf
-      - automake
-      - autotools-dev
       - bc
-      - dh-autoreconf
       - docbook-xml
       - docbook-xsl
       - gnome-common
-      - gnome-doc-utils
+      - gtk-doc-tools
       - intltool
       - libbz2-dev
       - libcurl4-gnutls-dev
+      - libgeoclue-2-dev
       - libexpat1-dev
       - libgexiv2-dev
       - libglib2.0-dev
       - libgps-dev
-      - libgtk2.0-dev
+      - libgtk-3-dev
       - libmagic-dev
       - libmapnik-dev
       - libsqlite3-dev
-      - rarian-compat
+      - libjson-glib-dev
       - xsltproc
-    after: [desktop-gtk2]
-    
+      - libicu-dev
+      - liboauth-dev
+      - libpng-dev
+      - libzip-dev
+      - nettle-dev
+      - yelp-tools
+    stage-packages:
+      - libmapnik3.1
+      - libxau6
+      - libgtk-3-0
+      - libgeoclue-2-0
+      - libgps28
+      - libjson-glib-1.0-0
+      - libexiv2-27
+      - libgexiv2-2
+      - libmagic1
+      - liboauth0
+      - libzip4
+
+lint:
+  ignore:
+    - unused-library:
+      - usr/lib/x86_64-linux-gnu/libcolordprivate.so.*
+      - usr/lib/x86_64-linux-gnu/libdconf.so.*
+      - usr/lib/x86_64-linux-gnu/libicuio.so.*
+      - usr/lib/x86_64-linux-gnu/libicutest.so.*
+      - usr/lib/x86_64-linux-gnu/libssl3.so
